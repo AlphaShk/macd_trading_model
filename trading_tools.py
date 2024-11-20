@@ -10,6 +10,10 @@ class Metrics():
         self.ret = ret 
         self.vol = vol 
         self.sr = sr 
+    def __repr__ (self):
+        return f'Metrics: (ret: {self.ret}; vol: {self.vol}; sharpe: {self.sr})'
+    def __str__ (self):
+        return f'Metrics: (ret: {self.ret}; vol: {self.vol}; sharpe: {self.sr})'
 
 class MACD_Model(): 
     def __init__(self, df=None, config_path='config.yaml'): 
@@ -123,8 +127,7 @@ class MACD_Model():
         # Simulate trading strategy and compute results
         if not self.ir_const:
             # Fetch risk-free rates for non-constant interest rate scenario
-            rf_rates = np.array((pdr.DataReader('IRLTLT01DEM156N', 'fred', start=start_date, end=end_date) 
-                                 / 100)['IRLTLT01DEM156N'])
+            rf_rates = np.array((pdr.DataReader('IRLTLT01DEM156N', 'fred', start=start_date, end=end_date)/100)['IRLTLT01DEM156N'])
             self.rf = rf_rates = (1 + rf_rates) ** (1/12) - 1  # Monthly compounding
 
         # Subset dataframe based on date range
